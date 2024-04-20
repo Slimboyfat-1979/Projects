@@ -7,3 +7,31 @@ body {
     height: 100vh;
     background: linear-gradient(to right, blue, white)
 }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.btn {
+    padding: 1.5rem 3rem;
+    margin: 1rem;
+    border-radius: 10px;
+    background-color: rebeccapurple;
+    border: none;
+    font-size: 1.2rem;
+    color: white;
+    font-family: inherit;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: none;
+}

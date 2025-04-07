@@ -11,16 +11,17 @@
 </body>
 <script>
     fetch('/')
+    .then(response => response.json())
     .then(folderNames => {
         const folderList = document.getElementById('folder-list');
         folderNames.forEach(name => {
            const li = document.createElement('li');
            const a = document.createElement('a');
            a.textContent = name;
-           a.href = `/${name}`
+           a.href = `/${name}`;
            li.appendChild(a);
-           folderList.appendChild(li)
-        })
+           folderList.appendChild(li);
+        });
     })
 </script>
 </html>

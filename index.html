@@ -10,8 +10,7 @@
     <ul id="folder-list"></ul>
 </body>
 <script>
-    fetch('http://localhost:3000')
-    .then(response => response.json())
+    fetch('/')
     .then(folderNames => {
         const folderList = document.getElementById('folder-list');
         folderNames.forEach(name => {

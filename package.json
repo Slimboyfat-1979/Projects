@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "listfolders.js",
   "scripts": {
-    "start": "node listfolders.js"
+    "start": "nodemon listfolders.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -1,30 +1,64 @@
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const { json } = require("body-parser");
 
 const app = express();
+
 app.use(cors());
 
-app.use(express.static(path.join(__dirname)))
-
-
 const directoryPath = __dirname;
+app.use(express.static(directoryPath));
+
 
 app.get("/", (req, res) => {
-    fs.readdir(directoryPath, {withFileTypes: true}, (err, files) => {
-        if(err) {
-            res.status(500).send('Error reading the directory');
-            return;
-        }
+  fs.readdir(directoryPath, { withFileTypes: true }, (err, files) => {
+    if (err) {
+      res.send(500).send("Error reading the directory");
+      return;
+    } else {
+      const jsonData = files
+        .filter((file) => file.isDirectory)
+        .map((folder) => folder.name);
+      const listItems = jsonData
+        .map((name) => `<li><a href="/${name}">${name}</a></li>`)
+        .join("");
+      res.send(`
+             <!DOCTYPE html>
+             <html lang="en">
+             <head>
+             <meta charset="UTF-8">
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             <title>Projects</title>
+             </head>
+             <body>
+             <h3>Projects</h3>
+             <ul>
+             ${listItems}
+             </ul>
+             </body>
+             </html>
+            `);
+    }
+  });
+});
 
-        const folderNames = files.filter(file => file.isDirectory).map(folder => folder.name);
+app.get("/:folder", (req, res) => {
+    const folder = req.params.folder;
+    const folderPath = path.join(__dirname, folder);
+    app.use(`/${folder}`, express.static(folderPath))
 
-        res.json(folderNames);
-    })
-})
+    const filePath = path.join(folderPath, 'index.html');
+    res,sendFile(filePath)
+    res.sendFile(filePath);
+});
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-})
+
+app.use(express.static(directoryPath));
+
+
+
+app.listen(3000, () => {
+  console.log("Listening on port 3000");
+});

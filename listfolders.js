@@ -4,6 +4,8 @@ const path = require("path");
 const fs = require("fs");
 const { json } = require("body-parser");
 
+const PORT = 3000;
+
 const app = express();
 
 app.use(cors());
@@ -59,6 +61,6 @@ app.use(express.static(directoryPath));
 
 
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+app.listen(PORT, () => {
+  console.log("Listening on port " + 3000);
 });
